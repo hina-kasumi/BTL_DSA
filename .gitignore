@@ -1,0 +1,33 @@
+# Biên dịch tạm thời
+build/
+bin/
+*.o
+*.obj
+*.exe
+*.out
+
+# Tệp cấu hình của IDE
+*.sublime-workspace
+*.sublime-project
+.vscode/
+*.ncb
+*.sdf
+*.suo
+*.user
+*.userprefs
+*.tlog
+*.vscode/
+
+# Thư mục chứa thư viện
+lib/
+
+# Tệp log
+*.log
+
+# Tệp tạm thời
+*.tmp
+*.temp
+
+# Tệp hệ thống
+.DS_Store
+Thumbs.db
