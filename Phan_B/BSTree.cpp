@@ -58,11 +58,15 @@ void remove(Node<T> *&root, T val)
     {
         if (!root->left)
         {
+            Node<T> *p = root;
             root = root->right;
+            delete p;
         }
         else if (!root->right)
         {
+            Node<T> *p = root;
             root = root->left;
+            delete p;
         }
         else
         {
