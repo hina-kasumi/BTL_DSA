@@ -1,6 +1,10 @@
 Bài 29
 - Xây dựng lớp cây tìm kiếm nhị phân. 
-- Viết chương trình quản lý lịch công tác trong tháng đơn giản: cho phép nhập vào nội dung công việc cần làm theo ngày, theo giờ. Trong một ngày có thể có nhiều công việc, mỗi công việc có giờ bắt đầu, tên công việc, nội dung công việc, tính chất công việc {rất quan trọng, quan trọng, bình thường, không cần thiết}, …
+- Viết chương trình quản lý lịch công tác trong tháng đơn giản: cho phép nhập vào nội dung công việc cần làm theo ngày, theo giờ. 
+    Trong một ngày có thể có nhiều công việc, mỗi công việc có giờ bắt đầu, tên công việc,
+    nội dung công việc, tính chất công việc {rất quan trọng, quan trọng, bình thường, không cần thiết}, …
+
+
 Chương trình có các chức năng chính như sau:
 -   	Nhập nội dung công việc cần làm theo ngày, theo giờ.
 -   	Xem lịch công tác theo ngày yêu cầu.
@@ -9,7 +13,10 @@ Chương trình có các chức năng chính như sau:
 -   	Xem các công việc chưa thực hiện.
 -   	Xem các công việc từ ngày a đến ngày b.
 -   	Xóa hay điều chỉnh lịch công tác. Nếu sau khi điều chỉnh, ngày nào không còn việc phải làm sẽ xóa khỏi lịch công tác.
+
+
 Yêu cầu: Cấu trúc dữ liệu được sử dụng là cây nhị phân tìm kiếm (BST), trong đó:
 -   	Mỗi nút trên cây BST là một ngày của lịch công tác.
 -   	Trong mỗi nút ngày trên cây lại chứa một danh sách liên kết lưu thông tin các công việc.
--   	Khi thêm một công việc vào một ngày đã tồn tại trên cây thì công việc này sẽ được đưa vào danh sách liên kết chứa các công việc theo thứ tự tăng dần của giờ bắt đầu.
+-   	Khi thêm một công việc vào một ngày đã tồn tại trên cây thì công việc này sẽ được đưa vào danh sách 
+            liên kết chứa các công việc theo thứ tự tăng dần của giờ bắt đầu.
