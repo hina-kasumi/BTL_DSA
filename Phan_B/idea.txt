@@ -1,0 +1,67 @@
+cây bst lưu trữ cặp class gọi là lịch trình trong ngày (ngày, list<công viêc>)
+khi nào thêm công việc thì nếu ngày nhập vào không trong bst thì sẽ thêm vào còn nếu đã có thì push_back vào list
+
+
+Để xây dựng chương trình quản lý lịch công tác theo yêu cầu, bạn có thể thiết kế các lớp chính sau đây:
+
+### 1. **Lớp `Task`**
+   - Mô tả: Lớp này sẽ đại diện cho từng công việc cụ thể trong ngày.
+   - Thuộc tính:
+     - `int startHour`: Giờ bắt đầu công việc.
+     - `String title`: Tên công việc.
+     - `String description`: Nội dung công việc.
+     - `String priority`: Tính chất công việc (`rất quan trọng`, `quan trọng`, `bình thường`, `không cần thiết`).
+     - `boolean isCompleted`: Trạng thái đã hoàn thành hoặc chưa thực hiện.
+   - Phương thức:
+     - `boolean isCompleted()`: Trả về trạng thái đã hoàn thành hay chưa.
+     - `int compareTo(Task other)`: So sánh giờ bắt đầu để sắp xếp thứ tự công việc theo giờ.
+
+### 2. **Lớp `TaskList`**
+   - Mô tả: Lớp này chứa danh sách liên kết các công việc của từng ngày, sắp xếp theo thứ tự giờ bắt đầu.
+   - Thuộc tính:
+     - `LinkedList<Task> tasks`: Danh sách công việc trong ngày, sắp xếp theo giờ bắt đầu.
+   - Phương thức:
+     - `void addTask(Task task)`: Thêm công việc vào danh sách và sắp xếp theo giờ.
+     - `void removeTask(Task task)`: Xóa công việc.
+     - `List<Task> getTasksByPriority(String priority)`: Lấy danh sách công việc theo tính chất.
+     - `List<Task> getTasksByStatus(boolean completed)`: Lấy danh sách công việc theo trạng thái hoàn thành.
+
+### 3. **Lớp `DailySchedule`**
+   - Mô tả: Đại diện cho lịch công tác của một ngày trong cây BST.
+   - Thuộc tính:
+     - `int date`: Ngày trong tháng (1-31).
+     - `TaskList taskList`: Danh sách công việc của ngày đó.
+   - Phương thức:
+     - `void addTask(Task task)`: Thêm công việc vào `taskList`.
+     - `void removeTask(Task task)`: Xóa công việc khỏi `taskList`.
+     - `boolean hasTasks()`: Kiểm tra xem ngày đó có công việc nào không.
+   
+### 4. **Lớp `BinarySearchTree`**
+   - Mô tả: Cấu trúc dữ liệu cây nhị phân tìm kiếm lưu trữ lịch công tác theo ngày.
+   - Thuộc tính:
+     - `Node root`: Gốc của cây BST.
+   - Phương thức:
+     - `void insert(DailySchedule dailySchedule)`: Chèn lịch công tác của một ngày vào cây.
+     - `DailySchedule find(int date)`: Tìm kiếm lịch công tác của một ngày cụ thể.
+     - `void delete(int date)`: Xóa lịch công tác của một ngày.
+     - `List<DailySchedule> getTasksBetweenDates(int startDate, int endDate)`: Lấy công việc từ ngày a đến ngày b.
+   
+### 5. **Lớp `Node`**
+   - Mô tả: Đại diện cho từng nút của cây nhị phân tìm kiếm.
+   - Thuộc tính:
+     - `DailySchedule data`: Dữ liệu chứa lịch công tác của ngày.
+     - `Node left`: Nút con trái.
+     - `Node right`: Nút con phải.
+   
+### 6. **Lớp `SchedulerManager`**
+   - Mô tả: Lớp quản lý và xử lý các yêu cầu của người dùng.
+   - Thuộc tính:
+     - `BinarySearchTree calendar`: Cây BST lưu trữ lịch công tác.
+   - Phương thức:
+     - `void addTask(int date, Task task)`: Thêm công việc vào lịch.
+     - `List<Task> viewTasksByDate(int date)`: Xem công việc theo ngày yêu cầu.
+     - `List<Task> viewTasksByPriority(String priority)`: Xem công việc theo tính chất.
+     - `List<Task> viewTasksByStatus(boolean completed)`: Xem công việc theo trạng thái hoàn thành.
+     - `void deleteTask(int date, Task task)`: Xóa công việc.
+     - `void updateTask(int date, Task oldTask, Task newTask)`: Cập nhật công việc.
+     - `List<DailySchedule> viewTasksBetweenDates(int startDate, int endDate)`: Xem công việc từ ngày a đến ngày b.

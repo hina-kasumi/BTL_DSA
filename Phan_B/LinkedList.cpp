@@ -128,11 +128,3 @@ public:
 };
 
 #endif
-
-int main () {
-    linked_list<int> ls;
-    for(int x:{0,65,2,623,764,2})
-        ls.push_back(x);
-    for(linked_list<int>::iterator it1 = ls.begin(); it1!=ls.end(); it1++)
-        cout << *it1 << ' ';
-}
