@@ -1,92 +1,114 @@
 #include <iostream>
+#include"DailySchedule.cpp"
 using namespace std;
 
 #ifndef BST_H
 #define BST_H
-
 // Node class
-template <class T>
-class Node
+
+class BST_Node
 {
 private:
 public:
-    T data;
-    Node<T> *left, *right;
-    Node(T data = 0)
+    DailySchedule data;
+    BST_Node *left, *right;
+    BST_Node(DailySchedule data)
     {
         this->data = data;
         this->left = this->right = nullptr;
     }
 };
 // thêm hàm vào bằng đệ quy
-template <class T>
-void insert(Node<T> *&curNode, T val)
+void insert(BST_Node *&curNode, DailySchedule val)
 {
-    if (curNode == nullptr)
-        curNode = new Node<T>(val);
+    if(curNode == nullptr){
+        curNode = new BST_Node(val);
+        return;
+    }
+    if (val.getDay() == curNode->data.getDay()){
+        for(CongViec cv: val.getList())
+            curNode->data.addTask(cv);
+    }
+    else if (val < curNode->data) 
+        insert(curNode->left, val);
     else
-        return insert(val < curNode->data ? curNode->left : curNode->right, val);
+        insert(curNode->right, val);
 }
 
 // tìm phần tử trong cây
-template <class T>
-Node<T> *find(Node<T> *curNode, T value)
+BST_Node *find(BST_Node *curNode, DailySchedule value)
 {
-    if (curNode == nullptr)
-        return nullptr;
-    if (value == curNode->data)
+    if (curNode == nullptr || curNode->data == value)
         return curNode;
-    else if (value < curNode->data)
-        return find(curNode->left, value);
-    else if (value > curNode->data)
-        return find(curNode->right, value);
+    else
+        find((value < curNode->data)? curNode->left : curNode->right, value);
 }
 
-// xóa node
-template <class T>
-T max_node(Node<T> *curr)
+// tìm node có giá trị lớn nhất
+DailySchedule max_node(BST_Node *curr)
 {
     return curr->right ? max_node(curr->right) : curr->data;
 }
 
-template <class T>
-void remove(Node<T> *&root, T val)
+// xóa node
+void remove(BST_Node *&root, DailySchedule val)
 {
     if (root == nullptr)
         return;
-    if (root->data == val)
-    {
-        if (!root->left)
-        {
-            Node<T> *p = root;
+    if (root->data == val){
+        if (root->data.getListSize() > 0){
+            for(CongViec cv: val.getList())
+                root->data.removeTask(cv);
+        }
+        if (root->data.getListSize() > 0);
+        else if(!root->left) {
+            BST_Node *p = root;
             root = root->right;
             delete p;
         }
-        else if (!root->right)
-        {
-            Node<T> *p = root;
+        else if (!root->right){
+            BST_Node *p = root;
             root = root->left;
             delete p;
         }
-        else
-        {
+        else {
             root->data = max_node(root->left);
             remove(root->left, root->data);
         }
     }
-    else
-        remove(val < root->data ? root->left : root->right, val);
 }
 
 // duyệt cây
-template <class T>
-void inorder(Node<T> *root)
+void inorder(BST_Node *root)
 {
     if (root == nullptr)
         return;
     inorder(root->left);
-    cout << root->data << ' ';
+    cout << root->data << endl;
     inorder(root->right);
 }
 
 #endif
+
+// int main()
+// {
+//     freopen("dataTest.txt", "r", stdin);
+//     int n;
+//     cin >> n;
+
+//     BST_Node *tree = nullptr;
+//     for (int i = 0; i < n; i++)
+//     {
+//         DailySchedule dl;
+//         cin >> dl;
+//         insert(tree, dl);
+//     }
+//     Day day;
+//     cin >> day;
+//     DailySchedule dl(day);
+//     find(tree, dl)->data.clear();
+
+//     inorder(tree);
+    
+//     return 0;
+// }
