@@ -61,7 +61,7 @@ class List
 private:
     list_node<T> *head;
     list_node<T> *tail;
-    int n;
+    int n = 0;
     void push_back(T x)
     {
         if (n == 0) head = tail = new list_node<T>(x);
@@ -99,7 +99,7 @@ public:
     int size() { return n; }
     T front() { return head->data; }
     T back() { return tail->data; }
-    void clear (){while (n) pop_front();}
+    // void clear (){while (n) pop_front();}
     void push(T x)
     {
         if (n == 0) push_back(x);
@@ -126,8 +126,10 @@ public:
     {
         if (n == 0)
             return;
+        if (n == 1)
+            return pop_front();
         list_node<T> *p = head;
-        while (p != nullptr && p->data != x)
+        while (p->next != nullptr && p->data != x)
             p = p->next;
         if (p == nullptr)
             return;
@@ -176,13 +178,6 @@ public:
         delete it.cur;
         n--;
     }
-
-    void print(){
-        for (List<T>::iterator i = begin(); i != end(); ++i)
-        {
-            cout << *i;
-        }
-    }
 };
 
 #endif
@@ -192,9 +187,12 @@ public:
 //     List<int> l;
 //     for(int x: {3,8,4,8,2,6,2,8,0,1,1})
 //         l.push(x);
-//     // l.print();
+//     cout << l.size() << endl;
+//     l.print();
 //     cout << endl;
-//     for(int x: l)
-//         cout << x << ' ';
+//     // l.print();
+//     l.erase(1);
+//     cout <<l.size() << endl;
+//     l.print();
 //     return 0;
 // }

@@ -12,13 +12,14 @@ private:
     List<CongViec> list;
 public:
     TaskList() {}
-
+    int getSize(){return list.size();}
     void addTask(CongViec cv) {list.push(cv);}
     void removeTask(CongViec cv) {list.erase(cv);}
+
     List<CongViec> getList() {return list;}
     void getTaskByPriority(string tinhChatCongViec) {
         for(List<CongViec>::iterator it = list.begin(); it != list.end(); ++it){
-            if ((*it).getTinhChatCongViec().compare(tinhChatCongViec) == 0){
+            if ((*it).getTinhChatCongViec() == tinhChatCongViec){
                 cout << (*it);
             }
         }
@@ -31,19 +32,18 @@ public:
             }
         }
     }
-    void clear(){
-        while (list.size() > 0)
-        {
-            list.pop_front();
-        }
-        
+    void print(){
+        if(list.size() > 0)
+            for(List<CongViec>::iterator it = list.begin(); it != list.end(); ++it)
+                cout << (*it);
     }
+    
 };
 
 #endif
 
 // int main(){
-//     freopen("dataTest.txt", "r", stdin);
+//     // freopen("dataTest.txt", "r", stdin);
 //     int n;
 //     cin >> n;
 //     TaskList list;
@@ -56,6 +56,31 @@ public:
 //     // cout << (list.getList().begin().cur);
 //     list.getTaskByPriority("Quan Trong");
 //     cout << endl;
-//     list.getList().print();
+//     list.print();
+//     cout << endl;
+//     list.print();
     
 // }
+/*
+4
+3
+A
+lam A
+Quan Trong
+chua lam
+5
+B
+lam B
+binh thuong
+lam roi
+4
+C
+lam C
+Quan Trong
+da lam
+9
+D
+lam D
+rat quan trong
+chua lam
+*/

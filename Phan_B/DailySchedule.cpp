@@ -1,6 +1,7 @@
 #include<iostream>
 #include"TaskList.cpp"
 #include"Day.cpp"
+#include"Task.cpp"
 using namespace std;
 
 #ifndef DAILYSCHEDULE_H
@@ -14,6 +15,10 @@ private:
 public:
     DailySchedule(Day day) {this->day = day;}
     DailySchedule(){}
+    DailySchedule(Task task){
+        day = task.getDay();
+        taskList.addTask(task.getCongViec());
+    }
     void setDay(Day day) {this->day = day;}
 
     // các method thêm xóa công việc
@@ -21,26 +26,44 @@ public:
     void removeTask(CongViec cv) {taskList.removeTask(cv);}
 
     // các method lấy ra danh sách công việc theo mức độ quan trọng hoặc trạng thái
-    void getTaskByPriority(string tinhChatCongViec) {taskList.getTaskByPriority(tinhChatCongViec);}
-    void getTaskByStatus(string trangThaiCongviec) {return taskList.getTaskByStatus(trangThaiCongviec);}
+    void getTaskByPriority(string tinhChatCongViec) {
+        printLine();
+        cout << day << ":" << endl;
+        taskList.getTaskByPriority(tinhChatCongViec);
+    }
+    void getTaskByStatus(string trangThaiCongviec) {
+        printLine();
+        cout << day << ":" << endl;
+        taskList.getTaskByStatus(trangThaiCongviec);
+    }
     List<CongViec> getList() {return taskList.getList();}
     Day getDay() {return day;}
     TaskList getTaskList() {return taskList;}
+    void print(){taskList.print();}
 
-    int getListSize(){taskList.getList().size();}
+    int getListSize(){taskList.getSize();}
+
+
+
+
+
+
+
+
+
 
     // các toán tử so sánh
-    bool operator==(DailySchedule ds) {return day == ds.day;}
-    bool operator!=(DailySchedule ds) {return day != ds.day;}
-    bool operator<(DailySchedule ds) {return day < ds.day;}
-    bool operator>(DailySchedule ds) {return day > ds.day;}
-    bool operator<=(DailySchedule ds) {return day <= ds.day;}
-    bool operator>=(DailySchedule ds) {return day >= ds.day;}
+    bool operator==(DailySchedule ds) {return this->day == ds.day;}
+    bool operator!=(DailySchedule ds) {return this->day != ds.day;}
+    bool operator<(DailySchedule ds) {return this->day < ds.day;}
+    bool operator>(DailySchedule ds) {return this->day > ds.day;}
+    bool operator<=(DailySchedule ds) {return this->day <= ds.day;}
+    bool operator>=(DailySchedule ds) {return this->day >= ds.day;}
 
     // ghi đè toán tử IO
     friend ostream &operator<<(ostream &os, DailySchedule dl){
         os << dl.day << endl;
-        dl.getList().print();
+        dl.taskList.print();
         return os;
     }
     friend istream &operator>>(istream &is, DailySchedule &dl){
@@ -48,6 +71,10 @@ public:
         is >> dl.day >> cv;
         dl.addTask(cv);
         return is;
+    }
+    void Output () {
+        cout << this->day << endl;
+        this->taskList.print();
     }
     static DailySchedule Input () {
         Day day;
@@ -58,16 +85,13 @@ public:
         dl.addTask(cv);
         return dl;
     }
-    void clear(){
-        taskList.clear();
-    }
 };
 
 #endif
 
 // int main () {
 
-//     freopen("dataTest.txt", "r", stdin);
+//     // freopen("dataTest.txt", "r", stdin);
 //     int n;
 //     cin >> n;
 //     Day day;
@@ -81,9 +105,35 @@ public:
 //     }
 //     // cout << (list.getList().begin().cur);
 //     cout << day << endl;
-//     list.getTaskByPriority("Quan Trong");
+//     list.print();
+//     // list.getTaskByPriority("Quan Trong");
 //     cout << endl;
-//     list.getList().print();
-    
+//     // list.getTaskByPriority("Quan Trong");
+//     list.print();
 
 // }
+
+/*
+4
+30 10 2024
+3
+A
+lam A
+Quan Trong
+chua lam
+5
+B
+lam B
+binh thuong
+lam roi
+4
+C
+lam C
+Quan Trong
+da lam
+9
+D
+lam D
+rat quan trong
+chua lam
+*/

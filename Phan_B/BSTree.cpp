@@ -1,5 +1,6 @@
 #include <iostream>
-#include"DailySchedule.cpp"
+#include "DailySchedule.cpp"
+#include "Task.cpp"
 using namespace std;
 
 #ifndef BST_H
@@ -19,29 +20,30 @@ public:
     }
 };
 // thêm hàm vào bằng đệ quy
-void insert(BST_Node *&curNode, DailySchedule val)
+void insert(BST_Node *&curNode, Task val)
 {
-    if(curNode == nullptr){
+    if (curNode == nullptr)
+    {
         curNode = new BST_Node(val);
         return;
     }
-    if (val.getDay() == curNode->data.getDay()){
-        for(CongViec cv: val.getList())
-            curNode->data.addTask(cv);
+    if (val.getDay() == curNode->data.getDay())
+    {
+        curNode->data.addTask(val.getCongViec());
     }
-    else if (val < curNode->data) 
+    else if (val.getDay() < curNode->data.getDay())
         insert(curNode->left, val);
     else
         insert(curNode->right, val);
 }
 
 // tìm phần tử trong cây
-BST_Node *find(BST_Node *curNode, DailySchedule value)
+BST_Node *find(BST_Node *curNode, Day day)
 {
-    if (curNode == nullptr || curNode->data == value)
+    if (curNode == nullptr || curNode->data.getDay() == day)
         return curNode;
     else
-        find((value < curNode->data)? curNode->left : curNode->right, value);
+        return find((day < curNode->data.getDay()) ? curNode->left : curNode->right, day);
 }
 
 // tìm node có giá trị lớn nhất
@@ -49,43 +51,71 @@ DailySchedule max_node(BST_Node *curr)
 {
     return curr->right ? max_node(curr->right) : curr->data;
 }
-
-// xóa node
-void remove(BST_Node *&root, DailySchedule val)
-{
+void remove_day (BST_Node *&root, Day day) {
     if (root == nullptr)
         return;
-    if (root->data == val){
-        if (root->data.getListSize() > 0){
-            for(CongViec cv: val.getList())
-                root->data.removeTask(cv);
+    if (root->data.getDay() == day){
+        if(!root->left && !root->right){
+            root = nullptr;
+            return;
         }
-        if (root->data.getListSize() > 0);
-        else if(!root->left) {
+        if (!root->left){
             BST_Node *p = root;
-            root = root->right;
-            delete p;
+            root->right;
+            p = nullptr;
+            // delete p;
         }
         else if (!root->right){
             BST_Node *p = root;
             root = root->left;
-            delete p;
+            p = nullptr;
+            // delete p;
         }
         else {
             root->data = max_node(root->left);
-            remove(root->left, root->data);
+            remove_day(root->left, root->data.getDay());
         }
     }
+    else
+        remove_day(day < root->data.getDay()?root->left:root->right, day);
+}
+
+// xóa node
+void remove(BST_Node *&root, Task val)
+{
+    BST_Node *node = find(root, val.getDay());
+    if (node == nullptr)
+        return;
+    node->data.removeTask(val.getCongViec());
+    if (node->data.getList().size()==0)
+        remove_day(root, val.getDay());
 }
 
 // duyệt cây
 void inorder(BST_Node *root)
 {
-    if (root == nullptr)
+    if (!root)
         return;
     inorder(root->left);
-    cout << root->data << endl;
+    printLine();
+    cout << root->data.getDay() << ":" << endl;
+    root->data.print();
     inorder(root->right);
+}
+
+void getTaskByPriority(BST_Node *root, string tinhChatCongViec){
+    if (!root)
+        return;
+    getTaskByPriority(root->left, tinhChatCongViec);
+    root->data.getTaskByPriority(tinhChatCongViec);
+    getTaskByPriority(root->right, tinhChatCongViec);
+}
+void getTaskByStatus(BST_Node *root, string trangThaiCongViec){
+    if (!root)
+        return;
+    getTaskByStatus(root->left, trangThaiCongViec);
+    root->data.getTaskByStatus(trangThaiCongViec);
+    getTaskByStatus(root->right, trangThaiCongViec);
 }
 
 #endif
@@ -99,16 +129,19 @@ void inorder(BST_Node *root)
 //     BST_Node *tree = nullptr;
 //     for (int i = 0; i < n; i++)
 //     {
-//         DailySchedule dl;
+//         Task dl;
 //         cin >> dl;
 //         insert(tree, dl);
 //     }
-//     Day day;
-//     cin >> day;
-//     DailySchedule dl(day);
-//     find(tree, dl)->data.clear();
-
 //     inorder(tree);
-    
+//     Task task;
+//     cin >> task;
+//     // DailySchedule dl(day);
+//     // dl.Output();
+//     remove(tree, task);
+//     cout << endl << "-------------------------" << endl;
+//     // cout << "data:\n" << (find(tree, dl)->data) << endl;
+//     inorder(tree);
+
 //     return 0;
 // }

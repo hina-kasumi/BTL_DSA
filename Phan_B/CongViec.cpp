@@ -27,7 +27,7 @@ public:
         this->tenCongViec = tenCongViec;
         this->noiDungCongviec = noiDungCongviec;
         this->tinhChatCongViec = "";
-        setNotStarted();
+        setNotDone();
     }
 
     CongViec()
@@ -36,7 +36,7 @@ public:
         this->tenCongViec = "";
         this->noiDungCongviec = "";
         this->tinhChatCongViec = "";
-        setNotStarted();
+        setNotDone();
     }   
 
     //toan tu nhap xuat
@@ -54,7 +54,7 @@ public:
 
     friend ostream &operator<<(ostream &os, CongViec cv)
     {
-        os << setw(10) << cv.gioBatDau << '|'
+        os << setw(15) << cv.gioBatDau << '|'
            << setw(20) << cv.tenCongViec << '|'
            << setw(20) << cv.noiDungCongviec << '|'
            << setw(20) << cv.tinhChatCongViec << '|'
@@ -66,10 +66,11 @@ public:
     //getter and setter
     int getTime(){return gioBatDau;}
     string getTrangThaiCongViec(){return trangThaiCongviec;}
-    string getTinhChatCongViec(){return tinhChatCongViec;}
+    string &getTinhChatCongViec(){return this->tinhChatCongViec;}
+
     void setDone(){trangThaiCongviec = "Hoan Thanh";}
-    void setWorking (){trangThaiCongviec = "Dang Lam";}
-    void setNotStarted (){trangThaiCongviec = "Chua Lam";}
+    void setNotDone (){trangThaiCongviec = "Chua Hoan Thanh";}
+
     void setRatQuanTrong(){tinhChatCongViec = "Rat Quan Trong";}
     void setKhongCanThiet(){tinhChatCongViec = "Khong Can Thiet";}
     void setBinhThuong(){tinhChatCongViec = "Binh Thuong";}
@@ -95,5 +96,13 @@ public:
     bool operator==(const CongViec cv){return this->gioBatDau == cv.gioBatDau;}
     bool operator!=(const CongViec cv){return this->gioBatDau != cv.gioBatDau;}
 };
+
+void printLine(){
+    for (int i = 0; i <= 100; i++)
+    {
+        cout << '-';
+    }
+    cout << endl;
+}
 
 #endif
