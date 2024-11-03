@@ -68,38 +68,38 @@ public:
     }
 
     //Xóa hay điều chỉnh lịch công tác. Nếu sau khi điều chỉnh, ngày nào không còn việc phải làm sẽ xóa khỏi lịch công tác.
-    void changeSchedule(Day day1, Day day2, CongViec cv) {
-        // BST_Node *node1 = find(scheduleTree, day1);
+    void changeSchedule(Task task, Day newDay) {
+        BST_Node *node = find(scheduleTree, task);
+        if (node)
+        {
+            removeTask(task);
+            // remove(scheduleTree, task);
+            task.setDay(newDay);
+            insert(scheduleTree, task);
+        }
     } 
 };
 
 
 int main()
 {
-    // 1.Nhập nội dung công việc cần làm theo ngày, theo giờ.
-    // 2.Xem lịch công tác theo ngày yêu cầu.
-    // 3.Xem các công việc theo tính chất: rất quan trọng, quan trọng, …
-    // 4.Xem các công việc đã hoàn tất.
-    // 5.Xem các công việc chưa thực hiện.
-    // 6.Xem các công việc từ ngày a đến ngày b.
-    // 7.Xóa hay điều chỉnh lịch công tác. Nếu sau khi điều chỉnh, ngày nào không còn việc phải làm sẽ xóa khỏi lịch công tác.
     DailyScheduleManager manager;
     int option = 0;
     do
     {
-            cout << "0. thoat\n"
-             << "1. nhap noi dung cong viec can lam theo ngay, theo gio\n"
-             << "2. xem lich cong tac hien co\n"
-             << "3. xem lich cong tac theo ngay yeu cau\n"
-             << "4. xem cac cong viec theo tinh chat: rat quan trong, quan trong, ...\n"
-             << "5. xem cac cong viec da hoan tat\n"
-             << "6. xem cac cong viec chua thuc hien\n"
-             << "7. xem cac cong viec tu ngay a den ngay b\n"
-             << "8. xoa mot ngay cong tac\n"
-             << "9. xoa mot cong viec\n"
-             << "10. chuyen mot cong viec sang ngay khac\n"
-             << "11. lam sach\n"
-             << "Chon chuc nang: ";
+        cout << "0. thoat\n"
+            << "1. nhap noi dung cong viec can lam theo ngay, theo gio\n"
+            << "2. xem lich cong tac hien co\n"
+            << "3. xem lich cong tac theo ngay yeu cau\n"
+            << "4. xem cac cong viec theo tinh chat: rat quan trong, quan trong, ...\n"
+            << "5. xem cac cong viec da hoan tat\n"
+            << "6. xem cac cong viec chua thuc hien\n"
+            << "7. xem cac cong viec tu ngay a den ngay b\n"
+            << "8. xoa mot ngay cong tac\n"
+            << "9. xoa mot cong viec\n"
+            << "10. chuyen mot cong viec sang ngay khac\n"
+            << "11. lam sach\n"
+            << "Chon chuc nang: ";
         cin >> option;
         if (option == 1)
         {
@@ -163,7 +163,7 @@ int main()
             cout << "nhap ngay chuyen den:\n";
             Day day;
             cin >> day;
-            manager.changeSchedule(task.getDay(), day, task.getCongViec());
+            manager.changeSchedule(task, day);
         }
         else if (option == 11)
         {

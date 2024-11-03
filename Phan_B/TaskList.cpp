@@ -38,6 +38,13 @@ public:
                 cout << (*it);
     }
     
+    bool containTask(CongViec cv){
+        for(List<CongViec>::iterator it = list.begin(); it != list.end(); ++it){
+            if ((*it) == cv)
+                return true;
+        }
+        return false;
+    }
 };
 
 #endif

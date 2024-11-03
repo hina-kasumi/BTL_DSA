@@ -21,7 +21,7 @@ public:
         os << dl.day << endl << dl.cv;
         return os;
     }
-
+    void setDay(Day day){this->day = day;}
     Day getDay(){return day;}
     CongViec getCongViec () {return cv;}
 

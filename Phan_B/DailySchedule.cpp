@@ -42,8 +42,7 @@ public:
     void print(){taskList.print();}
 
     int getListSize(){taskList.getSize();}
-
-
+    bool containTask(CongViec cv){return taskList.containTask(cv);}
 
 
 

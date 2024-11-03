@@ -46,6 +46,18 @@ BST_Node *find(BST_Node *curNode, Day day)
         return find((day < curNode->data.getDay()) ? curNode->left : curNode->right, day);
 }
 
+BST_Node *find(BST_Node *curNode, Task task)
+{
+    if (curNode == nullptr || curNode->data.getDay() == task.getDay()){
+        if (curNode->data.containTask(task.getCongViec()))
+            return curNode;
+        else
+            return nullptr;
+    }
+    else
+        return find((task.getDay() < curNode->data.getDay()) ? curNode->left : curNode->right, task);
+}
+
 // tìm node có giá trị lớn nhất
 DailySchedule max_node(BST_Node *curr)
 {
@@ -87,6 +99,7 @@ void remove(BST_Node *&root, Task val)
     if (node == nullptr)
         return;
     node->data.removeTask(val.getCongViec());
+    cout << "check";
     if (node->data.getList().size()==0)
         remove_day(root, val.getDay());
 }

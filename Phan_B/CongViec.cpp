@@ -106,12 +106,36 @@ public:
     }
 
     //ghi de toan tu so sanh
-    bool operator<(const CongViec cv){return this->gioBatDau < cv.gioBatDau;}
-    bool operator>(const CongViec cv){return this->gioBatDau > cv.gioBatDau;}
-    bool operator<=(const CongViec cv){return this->gioBatDau <= cv.gioBatDau;}
-    bool operator>=(const CongViec cv){return this->gioBatDau >= cv.gioBatDau;}
-    bool operator==(const CongViec cv){return this->gioBatDau == cv.gioBatDau;}
-    bool operator!=(const CongViec cv){return this->gioBatDau != cv.gioBatDau;}
+    bool operator<(const CongViec cv){
+        if (this->gioBatDau == cv.gioBatDau)
+            return tenCongViec < tenCongViec;
+        return this->gioBatDau < cv.gioBatDau;
+    }
+    bool operator>(const CongViec cv){
+        if (this->gioBatDau == cv.gioBatDau)
+            return tenCongViec > tenCongViec;
+        return this->gioBatDau > cv.gioBatDau;
+    }
+    bool operator<=(const CongViec cv){
+        if (this->gioBatDau == cv.gioBatDau)
+            return tenCongViec <= tenCongViec;
+        return this->gioBatDau <= cv.gioBatDau;
+    }
+    bool operator>=(const CongViec cv){
+        if (this->gioBatDau == cv.gioBatDau)
+            return tenCongViec >= tenCongViec;
+        return this->gioBatDau >= cv.gioBatDau;
+    }
+    bool operator==(const CongViec cv){
+        if (this->gioBatDau == cv.gioBatDau)
+            return tenCongViec == tenCongViec;
+        return this->gioBatDau == cv.gioBatDau;
+    }
+    bool operator!=(const CongViec cv){
+        if (this->gioBatDau == cv.gioBatDau)
+            return tenCongViec != tenCongViec;
+        return this->gioBatDau != cv.gioBatDau;
+    }
 };
 
 void printLine(){
