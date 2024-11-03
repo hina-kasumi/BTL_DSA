@@ -39,32 +39,37 @@ public:
     }
 
     void viewAllTask() {
+        printTile();
         inorder(scheduleTree);
     }
 
     //Xem các công việc theo tính chất: rất quan trọng, quan trọng, …
-    void viewTaskByPriority(string tinhChatCongViec) {
+    void viewTaskByPriority(int tinhChatCongViec) {
+        printTile();
         getTaskByPriority(scheduleTree, tinhChatCongViec);
     }
 
     //Xem các công việc đã hoàn tất.
     void viewTaskDone(BST_Node *root) {
-        getTaskByStatus(scheduleTree, "Hoan Thanh");
+        printTile();
+        getTaskByStatus(scheduleTree, 1);
     }
 
     //Xem các công việc chưa thực hiện.
     void viewTaskNotDone(BST_Node *root) {
-        getTaskByStatus(scheduleTree, "Chua Hoan Thanh");
+        printTile();
+        getTaskByStatus(scheduleTree, 0);
     }
 
     //Xem các công việc từ ngày a đến ngày b.
     void viewTaskByDay(BST_Node *root,Day a,Day b) {
-        
+        printTile();
+        aPeriod(scheduleTree, a, b);
     }
 
     //Xóa hay điều chỉnh lịch công tác. Nếu sau khi điều chỉnh, ngày nào không còn việc phải làm sẽ xóa khỏi lịch công tác.
     void changeSchedule(Day day1, Day day2, CongViec cv) {
-        
+        // BST_Node *node1 = find(scheduleTree, day1);
     } 
 };
 
@@ -82,64 +87,97 @@ int main()
     int option = 0;
     do
     {
-        cout << "1. nhap noi dung cong viec can lam theo ngay, theo gio\n"
-             << "2. xem lich cong tac theo ngay yeu cau\n"
-             << "3. xem cac cong viec theo tinh chat: rat quan trong, quan trong, ...\n"
-             << "4. xem cac cong viec da hoan tat\n"
-             << "5. xem cac cong viec chua thuc hien\n"
-             << "6. xem cac cong viec tu ngay a den ngay b\n"
-             << "7. xoa hay dieu chinh lich cong tac. Neu sau khi dieu chinh, ngay nao khong con viec phai lam se xoa khoi lich cong tac\n"
-             << "8. lam sach\n"
-             << "0. thoat\n";
+            cout << "0. thoat\n"
+             << "1. nhap noi dung cong viec can lam theo ngay, theo gio\n"
+             << "2. xem lich cong tac hien co\n"
+             << "3. xem lich cong tac theo ngay yeu cau\n"
+             << "4. xem cac cong viec theo tinh chat: rat quan trong, quan trong, ...\n"
+             << "5. xem cac cong viec da hoan tat\n"
+             << "6. xem cac cong viec chua thuc hien\n"
+             << "7. xem cac cong viec tu ngay a den ngay b\n"
+             << "8. xoa mot ngay cong tac\n"
+             << "9. xoa mot cong viec\n"
+             << "10. chuyen mot cong viec sang ngay khac\n"
+             << "11. lam sach\n"
+             << "Chon chuc nang: ";
         cin >> option;
         if (option == 1)
         {
-            cout << "Nhap noi dung cong viec can lam theo ngay, theo gio: ";
+            cout << "Nhap noi dung cong viec can lam theo ngay, theo gio:\n";
             Task task;
             cin >> task;
             manager.addTask(task);
         }
-        else if (option == 2)
+        else if (option == 2){
+            manager.viewAllTask();
+        }
+        else if (option == 3)
         {
             cout << "Nhap ngay yeu cau: ";
             Day day;
             cin >> day;
             manager.viewTask(day);
         }
-        else if (option == 3)
+        else if (option == 4)
         {
-            cout << "Nhap tinh chat cong viec: ";
-            string tinhChatCongViec;
-            cin >> tinhChatCongViec;
-            manager.viewTaskByPriority(tinhChatCongViec);
+            // Rất quan trọng, quan trọng, bình thường, không cần thiết
+            cout << "Nhap tinh chat cong viec:\n"
+            << "1. Rat quan trong\n"
+            << "2. Quan trong\n"
+            << "3. Binh thuong\n"
+            << "4. Khong can thiet\n";
+            int tinhChat;
+            cin >> tinhChat;
+            manager.viewTaskByPriority(tinhChat);
         }
-        else if (option == 4){manager.viewTaskDone(manager.getScheduleTree());}
-        else if (option == 5){manager.viewTaskNotDone(manager.getScheduleTree());}
-        else if (option == 6)
-        {
-            cout << "Nhap ngay dau va ngay cuoi: ";
-            Day a, b;
-            cin >> a >> b;
-            manager.viewTaskByDay(manager.getScheduleTree(), a, b);
-        }
+        else if (option == 5){manager.viewTaskDone(manager.getScheduleTree());}
+        else if (option == 6){manager.viewTaskNotDone(manager.getScheduleTree());}
         else if (option == 7)
         {
-            cout << "Nhap ngay can dieu chinh, ngay moi va cong viec: ";
-            Day day1, day2;
-            CongViec cv;
-            cin >> day1 >> day2 >> cv;
-            manager.changeSchedule(day1, day2, cv);
+            Day a, b;
+            cout << "Tu ngay: ";
+            cin >> a ;
+            cout << "Den ngay: ";
+            cin >> b;
+            manager.viewTaskByDay(manager.getScheduleTree(), a, b);
         }
         else if (option == 8)
+        {
+            cout << "Nhap ngay can xoa: ";
+            Day day;
+            cin >> day;
+            manager.removeTask(day);
+        }
+        else if (option == 9)
+        {
+            cout << "Nhap cong viec can xoa: ";
+            Task task;
+            cin >> task;
+            manager.removeTask(task);
+        }
+        else if (option == 10)
+        {
+            cout << "nhap cong viec can chuyen:\n";
+            Task task;
+            cin >> task;
+            cout << "nhap ngay chuyen den:\n";
+            Day day;
+            cin >> day;
+            manager.changeSchedule(task.getDay(), day, task.getCongViec());
+        }
+        else if (option == 11)
         {
             // lam sach man hinh
             system("cls");
         }
-        // if (option > 0 && option < 9){
-        //     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        //     cin.get();
-        // }
-    } while (option > 0 && option < 9);
-    
+        
+        if (option > 0 && option <= 11){
+            cout << "An enter de tiep tuc...";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.get();
+        }
+
+    } while (option > 0 && option <= 11);
+    system("cls");
     return 0;
 }

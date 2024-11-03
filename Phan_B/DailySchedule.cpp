@@ -26,12 +26,12 @@ public:
     void removeTask(CongViec cv) {taskList.removeTask(cv);}
 
     // các method lấy ra danh sách công việc theo mức độ quan trọng hoặc trạng thái
-    void getTaskByPriority(string tinhChatCongViec) {
+    void getTaskByPriority(int tinhChatCongViec) {
         printLine();
         cout << day << ":" << endl;
         taskList.getTaskByPriority(tinhChatCongViec);
     }
-    void getTaskByStatus(string trangThaiCongviec) {
+    void getTaskByStatus(int trangThaiCongviec) {
         printLine();
         cout << day << ":" << endl;
         taskList.getTaskByStatus(trangThaiCongviec);
@@ -88,52 +88,3 @@ public:
 };
 
 #endif
-
-// int main () {
-
-//     // freopen("dataTest.txt", "r", stdin);
-//     int n;
-//     cin >> n;
-//     Day day;
-//     cin >> day;
-//     DailySchedule list(day);
-//     for (int i = 0; i < n; i++)
-//     {
-//         CongViec cv;
-//         cin >> cv;
-//         list.addTask(cv);
-//     }
-//     // cout << (list.getList().begin().cur);
-//     cout << day << endl;
-//     list.print();
-//     // list.getTaskByPriority("Quan Trong");
-//     cout << endl;
-//     // list.getTaskByPriority("Quan Trong");
-//     list.print();
-
-// }
-
-/*
-4
-30 10 2024
-3
-A
-lam A
-Quan Trong
-chua lam
-5
-B
-lam B
-binh thuong
-lam roi
-4
-C
-lam C
-Quan Trong
-da lam
-9
-D
-lam D
-rat quan trong
-chua lam
-*/

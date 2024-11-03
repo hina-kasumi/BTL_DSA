@@ -36,13 +36,3 @@ public:
 };
 
 #endif
-
-// int main()
-// {
-//     Task task;
-//     cin >> task;
-//     cout <<task;
-//     cout << task;
-    
-//     return 0;
-// }

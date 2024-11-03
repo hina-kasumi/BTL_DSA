@@ -103,14 +103,14 @@ void inorder(BST_Node *root)
     inorder(root->right);
 }
 
-void getTaskByPriority(BST_Node *root, string tinhChatCongViec){
+void getTaskByPriority(BST_Node *root, int tinhChatCongViec){
     if (!root)
         return;
     getTaskByPriority(root->left, tinhChatCongViec);
     root->data.getTaskByPriority(tinhChatCongViec);
     getTaskByPriority(root->right, tinhChatCongViec);
 }
-void getTaskByStatus(BST_Node *root, string trangThaiCongViec){
+void getTaskByStatus(BST_Node *root, int trangThaiCongViec){
     if (!root)
         return;
     getTaskByStatus(root->left, trangThaiCongViec);
@@ -118,30 +118,20 @@ void getTaskByStatus(BST_Node *root, string trangThaiCongViec){
     getTaskByStatus(root->right, trangThaiCongViec);
 }
 
+void aPeriod(BST_Node *root, Day a, Day b)
+{
+    if (!root)
+        return;
+    if (root->data.getDay() >= a)
+        aPeriod(root->left, a, b);
+    if (root->data.getDay() >= a && root->data.getDay() <= b)
+    {
+        printLine();
+        cout << root->data.getDay() << ":" << endl;
+        root->data.print();
+    }
+    if (root->data.getDay() <= b)
+        aPeriod(root->right, a, b);
+}
+
 #endif
-
-// int main()
-// {
-//     freopen("dataTest.txt", "r", stdin);
-//     int n;
-//     cin >> n;
-
-//     BST_Node *tree = nullptr;
-//     for (int i = 0; i < n; i++)
-//     {
-//         Task dl;
-//         cin >> dl;
-//         insert(tree, dl);
-//     }
-//     inorder(tree);
-//     Task task;
-//     cin >> task;
-//     // DailySchedule dl(day);
-//     // dl.Output();
-//     remove(tree, task);
-//     cout << endl << "-------------------------" << endl;
-//     // cout << "data:\n" << (find(tree, dl)->data) << endl;
-//     inorder(tree);
-
-//     return 0;
-// }

@@ -9,6 +9,25 @@ using namespace std;
 #ifndef CONGVIEC_H
 #define CONGVIEC_H
 
+string tinhChat(int tinhChatCongViec){
+    switch (tinhChatCongViec)
+    {
+        case 1: return "Rat Quan Trong";
+        case 2: return "Quan Trong";
+        case 3: return "Binh Thuong";
+        case 4: return "Khong Can Thiet";
+        default: return "Khong Xac Dinh";
+    }
+}
+
+string trangThai(int trangThaiCongViec){
+    switch (trangThaiCongViec)
+    {
+        case 0: return "Chua Hoan Thanh";
+        case 1: return "Hoan Thanh";
+        default: return "Khong Xac Dinh";
+    }
+}
 
 //đây là công việc sẽ đc chứa trong TaskList và DailySchedule
 class CongViec
@@ -17,8 +36,8 @@ private:
     int gioBatDau;
     string tenCongViec;
     string noiDungCongviec;
-    string tinhChatCongViec;//rat quan trong, quan trong, binh thuong, khong can thiet
-    string trangThaiCongviec;
+    int tinhChatCongViec;//rat quan trong, quan trong, binh thuong, khong can thiet
+    int trangThaiCongviec;
 
 public:
     CongViec(int gioBatDau, string tenCongViec, string noiDungCongviec)
@@ -26,8 +45,8 @@ public:
         this->gioBatDau = gioBatDau;
         this->tenCongViec = tenCongViec;
         this->noiDungCongviec = noiDungCongviec;
-        this->tinhChatCongViec = "";
-        setNotDone();
+        this->tinhChatCongViec = 0;
+        this->trangThaiCongviec = 0;
     }
 
     CongViec()
@@ -35,8 +54,8 @@ public:
         this->gioBatDau = 0;
         this->tenCongViec = "";
         this->noiDungCongviec = "";
-        this->tinhChatCongViec = "";
-        setNotDone();
+        this->tinhChatCongViec = 0;
+        this->trangThaiCongviec = 0;
     }   
 
     //toan tu nhap xuat
@@ -46,8 +65,7 @@ public:
         is.ignore();
         getline(is, cv.tenCongViec);
         getline(is, cv.noiDungCongviec); 
-        getline(is, cv.tinhChatCongViec); 
-        getline(is, cv.trangThaiCongviec);
+        is >> cv.tinhChatCongViec >> cv.trangThaiCongviec;
 
         return is;
     }
@@ -57,24 +75,23 @@ public:
         os << setw(15) << cv.gioBatDau << '|'
            << setw(20) << cv.tenCongViec << '|'
            << setw(20) << cv.noiDungCongviec << '|'
-           << setw(20) << cv.tinhChatCongViec << '|'
-           << setw(20) << cv.trangThaiCongviec << endl;
+           << setw(20) << tinhChat(cv.tinhChatCongViec) << '|'
+           << setw(20) << trangThai(cv.trangThaiCongviec) << endl;
 
         return os;
     }
 
     //getter and setter
     int getTime(){return gioBatDau;}
-    string getTrangThaiCongViec(){return trangThaiCongviec;}
-    string &getTinhChatCongViec(){return this->tinhChatCongViec;}
+    int getTrangThaiCongViec(){return trangThaiCongviec;}
+    int getTinhChatCongViec(){return tinhChatCongViec;}
 
-    void setDone(){trangThaiCongviec = "Hoan Thanh";}
-    void setNotDone (){trangThaiCongviec = "Chua Hoan Thanh";}
+    void setDone(){trangThaiCongviec = 1;}
 
-    void setRatQuanTrong(){tinhChatCongViec = "Rat Quan Trong";}
-    void setKhongCanThiet(){tinhChatCongViec = "Khong Can Thiet";}
-    void setBinhThuong(){tinhChatCongViec = "Binh Thuong";}
-    void setQuanTrong(){tinhChatCongViec = "Quan Trong";}   
+    void setRatQuanTrong(){tinhChatCongViec = 1;}
+    void setQuanTrong(){tinhChatCongViec = 2;}   
+    void setBinhThuong(){tinhChatCongViec = 3;}
+    void setKhongCanThiet(){tinhChatCongViec = 4;}
 
 
     // ghi de toan tu gan
@@ -103,6 +120,16 @@ void printLine(){
         cout << '-';
     }
     cout << endl;
+}
+
+void printTile(){
+    printLine();
+    cout << setw(15) << "Gio Bat Dau" << '|'
+         << setw(20) << "Ten Cong Viec" << '|'
+         << setw(20) << "Noi Dung Cong Viec" << '|'
+         << setw(20) << "Tinh Chat Cong Viec" << '|'
+         << setw(20) << "Trang Thai Cong Viec" << endl;
+    printLine();
 }
 
 #endif

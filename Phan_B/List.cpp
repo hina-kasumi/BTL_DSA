@@ -181,18 +181,3 @@ public:
 };
 
 #endif
-
-// int main(int argc, char const *argv[])
-// {
-//     List<int> l;
-//     for(int x: {3,8,4,8,2,6,2,8,0,1,1})
-//         l.push(x);
-//     cout << l.size() << endl;
-//     l.print();
-//     cout << endl;
-//     // l.print();
-//     l.erase(1);
-//     cout <<l.size() << endl;
-//     l.print();
-//     return 0;
-// }
