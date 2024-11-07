@@ -133,10 +133,11 @@ int main()
             // lam sach man hinh
             system("cls");
         }
-        if (option > 0 && option < 10)
+        if (option > 0 && option < 10){
             cout << "An enter de tiep tuc...";
 
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cin.get();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.get();
+        }
     } while (option > 0 && option < 10);
 }
