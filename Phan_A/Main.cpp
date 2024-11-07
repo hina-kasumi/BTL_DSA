@@ -58,7 +58,7 @@ int main()
         else if (option == 2)
         {
             // them sinh vien
-            cout << "thong tin can them gom: maSV, tenSV, tuoiSV, DiemSv" << endl;
+            cout << "thong tin can them gom: maSV, hotenSV, ngaySinhNhat, DiemSv" << endl;
             SinhVien sv;
             cin >> sv;
             vectorSV.push_back(sv);
