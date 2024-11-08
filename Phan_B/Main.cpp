@@ -33,6 +33,7 @@ public:
 
     // xem lịch công tác trong một ngày
     void viewTask(Day day) {
+        printTile();
         BST_Node *node = find(scheduleTree, day);
         if(node)
             node->data.print();

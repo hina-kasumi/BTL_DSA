@@ -19,8 +19,6 @@ public:
         day = task.getDay();
         taskList.addTask(task.getCongViec());
     }
-    void setDay(Day day) {this->day = day;}
-
     // các method thêm xóa công việc
     void addTask(CongViec cv) {taskList.addTask(cv);}
     void removeTask(CongViec cv) {taskList.removeTask(cv);}
@@ -38,7 +36,6 @@ public:
     }
     List<CongViec> getList() {return taskList.getList();}
     Day getDay() {return day;}
-    TaskList getTaskList() {return taskList;}
     void print(){taskList.print();}
 
     void setDone(Task task){
