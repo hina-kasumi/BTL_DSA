@@ -41,6 +41,10 @@ public:
     TaskList getTaskList() {return taskList;}
     void print(){taskList.print();}
 
+    void setDone(Task task){
+        taskList.setDone(task.getCongViec());
+    }
+
     int getListSize(){taskList.getSize();}
     bool containTask(CongViec cv){return taskList.containTask(cv);}
 

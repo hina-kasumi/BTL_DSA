@@ -65,7 +65,7 @@ public:
         is.ignore();
         getline(is, cv.tenCongViec);
         getline(is, cv.noiDungCongviec); 
-        is >> cv.tinhChatCongViec >> cv.trangThaiCongviec;
+        is >> cv.tinhChatCongViec;
 
         return is;
     }

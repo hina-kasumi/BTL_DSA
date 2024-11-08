@@ -45,6 +45,17 @@ public:
         }
         return false;
     }
+
+    void setDone (CongViec cv) {
+        for(List<CongViec>::iterator it = list.begin(); it != list.end(); ++it){
+            if ((*it) == cv){
+                (*it).setDone();
+                cout << "da danh dau hoan thanh.\n";
+                return;
+            }
+        }
+        cout << "khong tim thay cong viec ban muon danh dau.\n";
+    }
 };
 
 #endif

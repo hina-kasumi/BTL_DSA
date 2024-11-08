@@ -8,16 +8,6 @@ int main()
     vector<SinhVien> vectorSV;
     do
     {
-        // 1. thêm danh sách sinh viên từ file
-        // 2. theem sinh vien
-        // 3. xoa sinh vien
-        // 4. in danh sach sinh vien
-        // 5. sap xep sinh vien theo diem
-        // 6. sap xep sinh vien theo ten
-        // 7. tim sinh vien theo so bao danh
-        // 8. clear du lieu
-        // 9. lam sach man hinh
-        // 10. thoat
         cout << "1. them danh sach sinh vien tu file" << endl
              << "2. them sinh vien" << endl
              << "3. xoa sinh vien" << endl

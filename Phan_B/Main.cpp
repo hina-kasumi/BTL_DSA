@@ -77,7 +77,16 @@ public:
             task.setDay(newDay);
             insert(scheduleTree, task);
         }
-    } 
+    }
+
+    void setDone(Task task){
+        BST_Node *node = find(scheduleTree, task);
+        if (node)
+        {
+            node->data.setDone(task);
+        }
+        
+    }
 };
 
 
@@ -98,7 +107,8 @@ int main()
             << "8. xoa mot ngay cong tac\n"
             << "9. xoa mot cong viec\n"
             << "10. chuyen mot cong viec sang ngay khac\n"
-            << "11. lam sach\n"
+            << "11. danh dau mot cong viec da hoan thanh\n"
+            << "12. lam sach\n"
             << "Chon chuc nang: ";
         cin >> option;
         if (option == 1)
@@ -167,17 +177,25 @@ int main()
         }
         else if (option == 11)
         {
+            cout << "nhap cong viec muon danh dau hoan thanh: ";
+            Task task;
+            cin  >> task;
+            manager.setDone(task);
+        }
+        
+        else if (option == 12)
+        {
             // lam sach man hinh
             system("cls");
         }
         
-        if (option > 0 && option <= 11){
+        if (option > 0 && option <= 12){
             cout << "An enter de tiep tuc...";
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cin.get();
         }
 
-    } while (option > 0 && option <= 11);
+    } while (option > 0 && option <= 12);
     system("cls");
     return 0;
 }
