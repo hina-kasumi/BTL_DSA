@@ -126,7 +126,7 @@ public:
     {
         if (n == 0)
             return;
-        if (n == 1)
+        if (n == 1 && head->data == x)
             return pop_front();
         list_node<T> *p = head;
         while (p->next != nullptr && p->data != x)

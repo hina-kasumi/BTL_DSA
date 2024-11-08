@@ -45,13 +45,6 @@ public:
     int getListSize(){taskList.getSize();}
     bool containTask(CongViec cv){return taskList.containTask(cv);}
 
-
-
-
-
-
-
-
     // các toán tử so sánh
     bool operator==(DailySchedule ds) {return this->day == ds.day;}
     bool operator!=(DailySchedule ds) {return this->day != ds.day;}
