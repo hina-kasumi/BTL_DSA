@@ -2,11 +2,12 @@
 #include "SinhVien.cpp"
 using namespace std;
 
-int main()
+class Manager
 {
-    int option;
+private:
     vector<SinhVien> vectorSV;
-    do
+public:
+    static void printOption()
     {
         cout << "1. them danh sach sinh vien tu file" << endl
              << "2. them sinh vien" << endl
@@ -14,12 +15,129 @@ int main()
              << "4. in danh sach sinh vien" << endl
              << "5. sap xep sinh vien theo diem" << endl
              << "6. sap xep sinh vien theo ten" << endl
-             << "7. tim sinh vien theo so bao danh" << endl
+             << "7. tim sinh vien theo ma sinh vien" << endl
              << "8. clear du lieu" << endl
              << "9. sua thong tin sinh vien" << endl
              << "10. lam sach man hinh" << endl
              << "11. thoat" << endl;
         cout << "Nhap lua chon: ";
+    }
+    void addFromFile(string fileName)
+    {
+        ifstream file(fileName);
+        if (file.is_open())
+        {
+            int n;
+            file >> n;
+            while (n--)
+            {
+                SinhVien sv;
+                file >> sv;
+                vectorSV.push_back(sv);
+            }
+            file.close();
+            cout << "Da them sinh vien tu file" << endl;
+        }
+        else
+        {
+            cout << "Khong the mo file" << endl;
+        }
+    }
+    void addSinhVien(SinhVien sv)
+    {
+        vectorSV.push_back(sv);
+        cout << "Da them sinh vien" << endl;
+    }
+    void deleteSinhVien(int maSV)
+    {
+        bool isDeleted = false;
+        for (int i = 0; i < vectorSV.size(); i++)
+        {
+            if (vectorSV[i].getMaSV() == maSV)
+            {
+                vectorSV.erase(vectorSV.begin() + i);
+                isDeleted = true;
+                cout << "Da xoa sinh vien" << endl;
+                break;
+            }
+        }
+        if (!isDeleted)
+            cout << "Khong tim thay sinh vien" << endl;
+    }
+    void printSinhVien()
+    {
+        cout << "Danh sach sinh vien:" << endl;
+        SinhVien::printTable();
+        for (int i = 0; i < vectorSV.size(); i++)
+        {
+            cout << vectorSV[i] << endl;
+        }
+    }
+    void sortPoint()
+    {
+        sort(vectorSV.begin(), vectorSV.end(), SinhVien::cmpPoint);
+        cout << "Sinh vien da duoc sap xep theo diem" << endl;
+    }
+    void sortName()
+    {
+        sort(vectorSV.begin(), vectorSV.end(), SinhVien::cmpName);
+        cout << "Sinh vien da duoc sap xep theo ten" << endl;
+    }
+    void findSinhVien(int maSV)
+    {
+        bool isFound = false;
+        for (int i = 0; i < vectorSV.size(); i++)
+        {
+            if (vectorSV[i].getMaSV() == maSV)
+            {
+                SinhVien::printTable();
+                cout << vectorSV[i] << endl;
+                isFound = true;
+                break;
+            }
+        }
+        if (!isFound)
+            cout << "Khong tim thay sinh vien" << endl;
+    }
+    void clearData()
+    {
+        vectorSV.clear();
+        cout << "Da xoa toan bo du lieu sinh vien" << endl;
+    }
+    void editSinhVien(int maSV)
+    {
+        bool isFound = false;
+        for (int i = 0; i < vectorSV.size(); i++)
+        {
+            if (vectorSV[i].getMaSV() == maSV)
+            {
+                cout << "thong tin can sua gom: maSV, hotenSV, ngaySinhNhat, DiemSv" << endl;
+                SinhVien sv;
+                cin >> sv;
+                isFound = true;
+                if (sv.getMaSV() == vectorSV[i].getMaSV()){
+                    vectorSV[i] = sv;
+                    
+                    cout << "Da sua sinh vien" << endl;
+                    break;
+                }
+                else 
+                    cout << "Ma sinh vien khong duoc sua" << endl;
+                
+            }
+        }
+        if (!isFound)
+            cout << "Khong tim thay sinh vien" << endl;
+    }
+};
+
+int main()
+{
+    int option;
+    Manager manager;
+    do
+    {
+        Manager::printOption();
         cin >> option;
         if (option == 1)
         {
@@ -27,24 +145,7 @@ int main()
             string fileName;
             cout << "Nhap ten file: ";
             cin >> fileName;
-            ifstream file(fileName);
-            if (file.is_open())
-            {
-                int n;
-                file >> n;
-                while (n--)
-                {
-                    SinhVien sv;
-                    file >> sv;
-                    vectorSV.push_back(sv);
-                }
-                file.close();
-                cout << "Da them sinh vien tu file" << endl;
-            }
-            else
-            {
-                cout << "Khong the mo file" << endl;
-            }
+            manager.addFromFile(fileName);
         }
         else if (option == 2)
         {
@@ -52,8 +153,7 @@ int main()
             cout << "thong tin can them gom: maSV, hotenSV, ngaySinhNhat, DiemSv" << endl;
             SinhVien sv;
             cin >> sv;
-            vectorSV.push_back(sv);
-            cout << "Da them sinh vien" << endl;
+            manager.addSinhVien(sv);
         }
         else if (option == 3)
         {
@@ -61,41 +161,22 @@ int main()
             int maSV;
             cout << "Nhap ma sinh vien can xoa: ";
             cin >> maSV;
-            bool isDeleted = false;
-            for (int i = 0; i < vectorSV.size(); i++)
-            {
-                if (vectorSV[i].getMaSV() == maSV)
-                {
-                    vectorSV.erase(vectorSV.begin() + i);
-                    isDeleted = true;
-                    cout << "Da xoa sinh vien" << endl;
-                    break;
-                }
-            }
-            if (!isDeleted)
-                cout << "Khong tim thay sinh vien" << endl;
+            manager.deleteSinhVien(maSV);
         }
         else if (option == 4)
         {
             // in danh sach sinh vien
-            cout << "Danh sach sinh vien:" << endl;
-            SinhVien::printTable();
-            for (int i = 0; i < vectorSV.size(); i++)
-            {
-                cout << vectorSV[i] << endl;
-            }
+            manager.printSinhVien();
         }
         else if (option == 5)
         {
             // sap xep sinh vien theo diem
-            sort(vectorSV.begin(), vectorSV.end(), SinhVien::cmpPoint);
-            cout << "Sinh vien da duoc sap xep theo diem" << endl;
+            manager.sortPoint();
         }
         else if (option == 6)
         {
             // sap xep sinh vien theo ten
-            sort(vectorSV.begin(), vectorSV.end(), SinhVien::cmpName);
-            cout << "Sinh vien da duoc sap xep theo ten" << endl;
+            manager.sortName();
         }
         else if (option == 7)
         {
@@ -103,48 +184,18 @@ int main()
             int maSV;
             cout << "Nhap ma sinh vien can tim: ";
             cin >> maSV;
-            for (int i = 0; i < vectorSV.size(); i++)
-            {
-                if (vectorSV[i].getMaSV() == maSV)
-                {
-                    SinhVien::printTable();
-                    cout << vectorSV[i] << endl;
-                    break;
-                }
-            }
+            manager.findSinhVien(maSV);
         }
         else if (option == 8)
         {
             // clear du lieu
-            vectorSV.clear();
-            cout << "Da xoa toan bo du lieu sinh vien" << endl;
+            manager.clearData();
         }
         else if (option == 9){
             cout << "nhap ma sinh vien muon sua thong tin: ";
             int maSV;
             cin >> maSV;
-            SinhVien sv;
-            bool isDeleted = false;
-            for (int i = 0; i < vectorSV.size(); i++)
-            {
-                if (vectorSV[i].getMaSV() == maSV)
-                {
-                    cout << "thong tin can them gom: maSV, hotenSV, ngaySinhNhat, DiemSv" << endl;
-                    cin >> sv;
-                    if (sv.getMaSV() == vectorSV[i].getMaSV())
-                        vectorSV[i] = sv;
-                    else{
-                        cout << "Ma sinh vien khong duoc thay doi" << endl;
-                        break;
-                    }
-                    isDeleted = true;
-                    vectorSV[i] = sv;
-                    cout << "Da sua thong tin sinh vien" << endl;
-                    break;
-                }
-            }
-            if (!isDeleted)
-                cout << "Khong tim thay sinh vien" << endl;
+            manager.editSinhVien(maSV);
         }
         else if (option == 10)
         {
