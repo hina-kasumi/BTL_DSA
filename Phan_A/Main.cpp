@@ -26,8 +26,9 @@ int main()
              << "6. sap xep sinh vien theo ten" << endl
              << "7. tim sinh vien theo so bao danh" << endl
              << "8. clear du lieu" << endl
-             << "9. lam sach man hinh" << endl
-             << "10. thoat" << endl;
+             << "9. sua thong tin sinh vien" << endl
+             << "10. lam sach man hinh" << endl
+             << "11. thoat" << endl;
         cout << "Nhap lua chon: ";
         cin >> option;
         if (option == 1)
@@ -128,16 +129,44 @@ int main()
             vectorSV.clear();
             cout << "Da xoa toan bo du lieu sinh vien" << endl;
         }
-        else if (option == 9)
+        else if (option == 9){
+            cout << "nhap ma sinh vien muon sua thong tin: ";
+            int maSV;
+            cin >> maSV;
+            SinhVien sv;
+            bool isDeleted = false;
+            for (int i = 0; i < vectorSV.size(); i++)
+            {
+                if (vectorSV[i].getMaSV() == maSV)
+                {
+                    cout << "thong tin can them gom: maSV, hotenSV, ngaySinhNhat, DiemSv" << endl;
+                    cin >> sv;
+                    if (sv.getMaSV() == vectorSV[i].getMaSV())
+                        vectorSV[i] = sv;
+                    else{
+                        cout << "Ma sinh vien khong duoc thay doi" << endl;
+                        break;
+                    }
+                    isDeleted = true;
+                    vectorSV[i] = sv;
+                    cout << "Da sua thong tin sinh vien" << endl;
+                    break;
+                }
+            }
+            if (!isDeleted)
+                cout << "Khong tim thay sinh vien" << endl;
+        }
+        else if (option == 10)
         {
             // lam sach man hinh
             system("cls");
         }
-        if (option > 0 && option < 10){
+        if (option > 0 && option < 11){
             cout << "An enter de tiep tuc...";
 
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cin.get();
         }
-    } while (option > 0 && option < 10);
+    } while (option > 0 && option < 11);
+    system("cls");
 }

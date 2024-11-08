@@ -74,6 +74,14 @@ public:
             cout << "-";
         cout << endl;
     }
+    SinhVien operator=(SinhVien sv)
+    {
+        maSV = sv.maSV;
+        name = sv.name;
+        birthday = sv.birthday;
+        point = sv.point;
+        return *this;
+    }
 };
 
 #endif
