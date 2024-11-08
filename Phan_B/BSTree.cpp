@@ -99,7 +99,6 @@ void remove(BST_Node *&root, Task val)
     if (node == nullptr)
         return;
     node->data.removeTask(val.getCongViec());
-    cout << "check";
     if (node->data.getList().size()==0)
         remove_day(root, val.getDay());
 }
