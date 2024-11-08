@@ -9,26 +9,6 @@ using namespace std;
 #ifndef CONGVIEC_H
 #define CONGVIEC_H
 
-string tinhChat(int tinhChatCongViec){
-    switch (tinhChatCongViec)
-    {
-        case 1: return "Rat Quan Trong";
-        case 2: return "Quan Trong";
-        case 3: return "Binh Thuong";
-        case 4: return "Khong Can Thiet";
-        default: return "Khong Xac Dinh";
-    }
-}
-
-string trangThai(int trangThaiCongViec){
-    switch (trangThaiCongViec)
-    {
-        case 0: return "Chua Hoan Thanh";
-        case 1: return "Hoan Thanh";
-        default: return "Khong Xac Dinh";
-    }
-}
-
 //đây là công việc sẽ đc chứa trong TaskList và DailySchedule
 class CongViec
 {
@@ -39,6 +19,25 @@ private:
     int tinhChatCongViec;//rat quan trong, quan trong, binh thuong, khong can thiet
     int trangThaiCongviec;
 
+    string tinhChat(int tinhChatCongViec){
+        switch (tinhChatCongViec)
+        {
+            case 1: return "Rat Quan Trong";
+            case 2: return "Quan Trong";
+            case 3: return "Binh Thuong";
+            case 4: return "Khong Can Thiet";
+            default: return "Khong Xac Dinh";
+        }
+    }
+
+    string trangThai(int trangThaiCongViec){
+        switch (trangThaiCongViec)
+        {
+            case 0: return "Chua Hoan Thanh";
+            case 1: return "Hoan Thanh";
+            default: return "Khong Xac Dinh";
+        }
+    }
 public:
     CongViec(int gioBatDau, string tenCongViec, string noiDungCongviec)
     {
@@ -75,8 +74,8 @@ public:
         os << setw(15) << cv.gioBatDau << '|'
            << setw(20) << cv.tenCongViec << '|'
            << setw(20) << cv.noiDungCongviec << '|'
-           << setw(20) << tinhChat(cv.tinhChatCongViec) << '|'
-           << setw(20) << trangThai(cv.trangThaiCongviec) << endl;
+           << setw(20) << cv.tinhChat(cv.tinhChatCongViec) << '|'
+           << setw(20) << cv.trangThai(cv.trangThaiCongviec) << endl;
 
         return os;
     }
