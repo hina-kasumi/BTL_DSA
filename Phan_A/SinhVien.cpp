@@ -22,13 +22,6 @@ public:
         maSV = 0;
         point = 0;
     }
-    SinhVien(int maSV, FullName name, Birthday age, float point)
-    {
-        this->maSV = maSV;
-        this->name = name;
-        this->birthday = age;
-        this->point = point;
-    }
     friend istream &operator>>(istream &is, SinhVien &sv)
     {
         is >> sv.maSV;
