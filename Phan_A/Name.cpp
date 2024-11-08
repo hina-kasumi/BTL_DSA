@@ -22,9 +22,9 @@ public:
         return os;
     }
 
-    FullName operator=(FullName FullName){
-        ho = FullName.ho;
-        ten = FullName.ten;
+    FullName operator=(FullName fullName){
+        ho = fullName.ho;
+        ten = fullName.ten;
         return *this;
     }
     string getHo(){
