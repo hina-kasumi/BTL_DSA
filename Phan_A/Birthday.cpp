@@ -44,20 +44,6 @@ public:
         cout << bd.day << "/" << bd.month << "/" << bd.year;
         return os;
     }
-
-    Birthday operator=(Birthday Birthday)
-    {
-        day = Birthday.day;
-        month = Birthday.month;
-        year = Birthday.year;
-        return *this;
-    }
-    bool operator==(Birthday Birthday) { return day == Birthday.day && month == Birthday.month && year == Birthday.year; }
-    bool operator!=(Birthday Birthday) { return !(*this == Birthday); }
-    bool operator<(Birthday Birthday) { return year < Birthday.year || (year == Birthday.year && (month < Birthday.month || (month == Birthday.month && day < Birthday.day))); }
-    bool operator>(Birthday Birthday) { return !(*this < Birthday || *this == Birthday); }
-    bool operator<=(Birthday Birthday) { return *this < Birthday || *this == Birthday; }
-    bool operator>=(Birthday Birthday) { return !(*this < Birthday); }
 };
 
 #endif

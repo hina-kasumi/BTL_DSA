@@ -38,10 +38,7 @@ public:
            << setw(30) << sv.point << endl;
         return os;
     }
-    float getPoint() { return point; }
-    FullName getName() { return name; }
     int getMaSV() { return maSV; }
-    Birthday getAge() { return birthday; }
 
     int static cmpName(SinhVien sv1, SinhVien sv2){return sv1.name < sv2.name;}
     int static cmpPoint(SinhVien sv1, SinhVien sv2)
@@ -49,10 +46,6 @@ public:
         if (sv1.point == sv2.point)
             return sv1.maSV < sv2.maSV;
         return sv1.point < sv2.point;
-    }
-    static bool equal(SinhVien sv1, SinhVien sv2)
-    {
-        return sv2.maSV == sv1.maSV;
     }
     static void printTable()
     {
